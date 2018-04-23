@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="BookManager:war exploded">
+    <output-path>C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/BookManager</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BookManager" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.45-bin.jar" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="BookManager/web/Web" />
+    </root>
+  </artifact>
+</component>
