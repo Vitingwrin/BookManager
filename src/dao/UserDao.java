@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
     public boolean checkPwd(User user, boolean who){
@@ -96,6 +98,29 @@ public class UserDao {
             close(conn, pst);
         }
         return null;
+    }
+
+    public String[] getAllUsers(){
+        Connection conn = DBConnect.getConnection();
+        PreparedStatement pst = null;
+        ResultSet rs;
+        String sql = "select userName from users where isAdmin is false";
+        List<String> userList = new ArrayList<>();
+        try {
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                userList.add(rs.getString(1));
+            }
+            if(userList.isEmpty()){
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(conn, pst);
+        }
+        return userList.toArray(new String[0]);
     }
 
     private static void close(Connection conn, PreparedStatement pst){

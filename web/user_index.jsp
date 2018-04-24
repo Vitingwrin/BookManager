@@ -40,7 +40,7 @@
     <div class="col-2 sidebar">
       <div id="left">
         <div class="sidebar-item list-group">
-          <a name="lend" class="nav-choice list-group-item list-group-item-action" href="#" onclick="show('lendbook.jsp', this)"><i class="fas fa-book"></i></i>&nbsp;&nbsp;借书</a>
+          <a name="lend" class="nav-choice list-group-item list-group-item-action" href="#" onclick="show('lendbook.jsp', this)"><i class="fas fa-book"></i>&nbsp;&nbsp;借书</a>
           <a name="return" class="nav-choice list-group-item list-group-item-action" href="#" onclick="show('returnbook.jsp', this)"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp;还书</a>
         </div>
       </div>
@@ -105,11 +105,11 @@
     function show(url, obj){
         $("#navbar a").removeClass("active");
         $("#left a").removeClass("active");
-        $(obj).addClass("active")
+        $(obj).addClass("active");
         $.ajax({
             type: "get",
             url: url,
-            async: false,
+            async: true,
             success: function(data){
                 console.log(url);
                 $("#content").html(data);

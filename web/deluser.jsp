@@ -13,21 +13,21 @@
   <div id="tips" class="alert alert-danger hidden"></div>
   <div id="resultInfo" class="alert alert-success hidden"></div>
   <div id="form" class="hidden">
-    <div class="row">
-      <div id="lentBook">
-
-      </div>
-    </div>
-    <div class="container">
       <div class="row">
-        <div class="col-6">
-          <input class="btn btn-outline-primary btn-block" type="button" value="还书" onclick="showResult()">
-        </div>
-        <div class="col-6">
-          <input class="btn btn-outline-primary btn-block" type="button" value="清空选择" onclick="clearAll()">
+        <div id="users">
+
         </div>
       </div>
-    </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <input class="btn btn-outline-primary btn-block" type="button" value="删除" onclick="showResult()">
+          </div>
+          <div class="col-6">
+            <input class="btn btn-outline-primary btn-block" type="button" value="清空选择" onclick="clearAll()">
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 
@@ -44,18 +44,16 @@
         check();
         $.ajax({
             type: "get",
-            url: "getBook.status",
+            url: "getUsers.user",
             async: true,
             success: function (result) {
                 if(result === "null"){
-                    $("#tips")[0].innerHTML = "无借书记录";
+                    $("#tips")[0].innerHTML = "无用户记录";
                     $("#tips").removeClass("hidden");
                 }else{
-                    var jsonArray = parseJson(result);
-                    var json;
-                    for(var i=0;i<jsonArray.length;i++){
-                        json = JSON.parse(jsonArray[i]);
-                        $("#lentBook").after(createDiv(json.bookId, json.bookName, json.author, json.price, json.ps));
+                    var users = result.split(",");
+                    for(var i=0;i<users.length;i++){
+                        $("#users").after(createDiv(users[i]));
                     }
                     if(i === 1){
                         $(".customDiv").removeClass("col-lg-3 col-sm-6");
@@ -104,31 +102,13 @@
         });
     }
 
-    function parseJson(data){
-        var jsonArray = [];
-        var temp = "";
-        for(var i=0;i<data.length;i++){
-            if(data[i] !== '}'){
-                temp += data[i];
-            }else{
-                temp += '}';
-                jsonArray.push(temp);
-                temp = "";
-                i++;
-            }
-        }
-        return jsonArray;
-    }
-
-    function createDiv(bookId, bookName, author, price, ps) {
+    function createDiv(user) {
         return "<div class=\"customDiv col-lg-3 col-sm-6\">" +
-            "<div id=\"" + "card" + bookId + "\" class=\"card\" style=\"margin-bottom: 20px;\" onmouseover='mouseOver(this);' onmouseout='mouseOut(this);' onmouseup='choose(this);'>\n" +
-            "          <input type=\"checkbox\" class=\"custom-control-input invisible\"  name=\"return_checkbox\" value=\"" + bookId + "\">\n" +
+            "<div id=\"" + "card" + user + "\" class=\"card\" style=\"margin-bottom: 20px;\" onmouseover='mouseOver(this);' onmouseout='mouseOut(this);' onmouseup='choose(this);'>\n" +
+            "          <input type=\"checkbox\" class=\"custom-control-input invisible\"  name=\"return_checkbox\" value=\"" + user + "\">\n" +
             "          <div class=\"card-body \">\n" +
-            "            <h3 class=\"card-title mb-3\">书名： <span id=\"bookName\">" + bookName + "</span></h3>\n" +
-            "            <h5 class=\"card-subtitle  mb-4 text-muted\">作者： <span id=\"author\">" + author + "</span></h5>\n" +
-            "            <h5 class=\"card-subtitle  mb-3 text-muted\">价格： <span id=\"price\">" + price + "</span></h5>\n" +
-            "            <p class=\"card-text\">备注： <span id=\"ps\">" + ps + "</span></p>\n" +
+            "            <h3 class=\"card-title mb-3\">用户名： <span id=\"userName\">" + user + "</span></h3>\n" +
+            "            <h5 class=\"card-subtitle  mb-4 text-muted\">借书数： <span id=\"lentQTY\">0</span></h5>\n" +
             "          </div>\n" +
             "        </div>" +
             "       </div>";

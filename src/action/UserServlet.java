@@ -16,7 +16,7 @@ public class UserServlet extends HttpServlet {
     private final static boolean ADMIN = true;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         PrintWriter printWriter = resp.getWriter();
@@ -52,7 +52,7 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         PrintWriter printWriter = resp.getWriter();
@@ -66,6 +66,19 @@ public class UserServlet extends HttpServlet {
         }else if("checkIsAdmin".equals(page)){
             UserDao dao = new UserDao();
             printWriter.print(dao.checkIsAdmin(req.getParameter("userName")));
+        }else if("getUsers".equals(page)){
+            UserDao dao = new UserDao();
+            String[] users = dao.getAllUsers();
+            if(users == null){
+                printWriter.print("null");
+                return;
+            }
+            StringBuilder builder = new StringBuilder();
+            for(String user: users){
+                builder.append(user).append(",");
+            }
+            builder.deleteCharAt(builder.length() - 1);
+            printWriter.print(builder.toString());
         }
 
     }

@@ -62,7 +62,6 @@
           <div class="container">
             <div class="row">
               <div class="col-6">
-                <input type="hidden" name="submit" value="借书">
                 <input class="btn btn-outline-primary btn-block" type="button" value="借书" onclick="showResult()">
               </div>
               <div class="col-6">
@@ -137,7 +136,7 @@
     }
 
     function createDiv(bookId, bookName, author, price, ps) {
-        var DIV = "<div class=\"col-md-6 col-sm-12\">" +
+        return "<div class=\"col-md-6 col-sm-12\">" +
             "<div id=\"" + "card" + bookId + "\" class=\"card\" style=\"margin-bottom: 20px;\" onmouseover='mouseOver(this);' onmouseout='mouseOut(this);' onmouseup='choose(this);'>\n" +
             "          <input type=\"checkbox\" class=\"custom-control-input invisible\"  name=\"lend_checkbox\" value=\"" + bookId + "\">\n" +
             "          <div class=\"card-body \">\n" +
@@ -148,8 +147,6 @@
             "          </div>\n" +
             "        </div>" +
             "       </div>";
-
-        return DIV;
     }
     function showResult(){
         $.ajax({

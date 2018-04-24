@@ -34,7 +34,7 @@
       <div style="padding-bottom: 10px" ></div>
       <a name="user" class="nav-choice list-group-item list-group-item-action" data-toggle="collapse" data-target="#user_nav" href="#"><i class="far fa-user"></i>&nbsp;&nbsp;用户管理</a>
       <div id="user_nav" class="collapse second-item">
-        <a name="userDel" class="nav-choice nav-link" href="#" onclick="show('null', this)"><i class="fas fa-user-times"></i>&nbsp;&nbsp;删除用户</a>
+        <a name="userDel" class="nav-choice nav-link" href="#" onclick="show('deluser.jsp', this)"><i class="fas fa-user-times"></i>&nbsp;&nbsp;删除用户</a>
         <a name="adminAdd" class="nav-choice nav-link" href="#" onclick="show('null', this)"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;新增管理员</a>
       </div>
     </div>
@@ -54,7 +54,7 @@
           <div style="padding-bottom: 30px" ></div>
           <a name="user" class="nav-choice list-group-item list-group-item-action" data-toggle="collapse" data-target="#user_sidebar" href="#"><i class="far fa-user"></i>&nbsp;&nbsp;用户管理</a>
           <div id="user_sidebar" class="collapse second-item">
-            <a name="userDel" class="nav-choice list-group-item list-group-item-action" href="#" onclick="show('null', this)"><i class="fas fa-user-times"></i>&nbsp;&nbsp;删除用户</a>
+            <a name="userDel" class="nav-choice list-group-item list-group-item-action" href="#" onclick="show('deluser.jsp', this)"><i class="fas fa-user-times"></i>&nbsp;&nbsp;删除用户</a>
             <a name="adminAdd" class="nav-choice list-group-item list-group-item-action" href="#" onclick="show('null', this)"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;新增管理员</a>
           </div>
         </div>
@@ -121,17 +121,15 @@
     function show(url, obj){
         $("#navbar a").removeClass("active");
         $("#left a").removeClass("active");
-        //$(obj).addClass("active");
         $("[name=" + obj.name +"]").addClass("active");
         if(url !== "null"){
             $.ajax({
                 type: "get",
                 url: url,
-                async: false,
+                async: true,
                 success: function(data){
                     console.log(url);
                     $("#content").html(data);
-
                 }
             });
         }
