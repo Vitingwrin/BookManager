@@ -4,8 +4,8 @@
             name="jdbc/mysql"
             type="javax.sql.DataSource"
             auth="Container"
-            driverClassName="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://localhost:3306/lianxi?useSSL=false"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/BookManager?useSSL=false&amp;serverTimezone=UTC"
             username="root"
             password="123456"
             maxIdle="2" />

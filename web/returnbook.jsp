@@ -13,11 +13,13 @@
   <div id="tips" class="alert alert-danger hidden"></div>
   <div id="resultInfo" class="alert alert-success hidden"></div>
   <div id="form" class="hidden">
-    <div class="row">
-      <div id="lentBook">
+    <form id="returnBook">
+      <div class="row">
+        <div id="lentBook">
 
+        </div>
       </div>
-    </div>
+    </form>
     <div class="container">
       <div class="row">
         <div class="col-6">
